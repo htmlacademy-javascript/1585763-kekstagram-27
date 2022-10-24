@@ -69,6 +69,6 @@ const createPost = () => {
   };
 };
 
-const similarUsers = () => Array.from({length: SIMILAR_POST_COUNT}, createPost);
+const generatePosts = () => Array.from({length: SIMILAR_POST_COUNT}, createPost);
 
-export {similarUsers};
+export {generatePosts};
