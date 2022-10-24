@@ -2,7 +2,7 @@ import {generatePosts} from './data.js';
 
 const randomPosts = generatePosts();
 const postsContainers = document.querySelector('.pictures');
-const postsTemplate = document.querySelector('#picture').content.querySelectorAll('.picture');
+const postsTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const postsFragment = document.createDocumentFragment();
 
 randomPosts.forEach(({url, description, likes}) => {
@@ -14,3 +14,5 @@ randomPosts.forEach(({url, description, likes}) => {
 });
 
 postsContainers.append(postsFragment);
+
+console.log(postsFragment);
