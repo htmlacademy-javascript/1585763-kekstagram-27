@@ -14,3 +14,5 @@ randomPosts.forEach(({url, comments, likes}) => {
 });
 
 postsContainers.append(postsFragment);
+
+export {randomPosts};
