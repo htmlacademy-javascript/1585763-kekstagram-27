@@ -11,7 +11,7 @@ const bigPictureClose = bigPicture.querySelector('.cancel');
 
 const fragmentComment = document.createDocumentFragment();
 
-const renderFullSizePhoto = function (postsElement) {
+const renderFullSizePhoto = (postsElement) => {
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
   bigPictureImg.src = postsElement.url;
@@ -19,8 +19,8 @@ const renderFullSizePhoto = function (postsElement) {
   commentsCount.textContent = postsElement.comments;
   socialCaption.textContent = postsElement.description;
 
-  for (let i = 0; i <= postsElement.comments.length - 1; i++) {
-    const postComment = postsElement.comments[i];
+  postsElement.forEach(({avatar, message}) => {
+    const postComment = postsElement.comments;
     const comment = document.createElement('li');
     const commentImg = document.createElement('img');
     const commentText = document.createElement('p');
@@ -29,10 +29,10 @@ const renderFullSizePhoto = function (postsElement) {
     commentText.classList.add('social__text');
     comment.append(commentImg);
     comment.append(commentText);
-    commentImg.src = postComment.avatar;
-    commentText.textContent = postComment.message;
+    commentImg.src = avatar;
+    commentText.textContent = message;
     fragmentComment.append(comment);
-  }
+  });
   socialComments.innerHTML = '';
   socialComments.append(fragmentComment);
   commentsLoader.classList.add('hidden');
@@ -46,13 +46,14 @@ const closeModal = function () {
   socialCommentCount.classList.remove('hidden');
 };
 
-bigPictureClose.addEventListener('click', closeModal);
-
-
-document.body.addEventListener('keydown', (evt) => {
+function closeModalEsc(evt) {
   if (evt.key === 'Escape') {
     closeModal();
   }
-});
+}
+
+bigPictureClose.addEventListener('click', closeModal, {once: true});
+
+body.addEventListener('keydown', closeModalEsc, {once: true});
 
 export {renderFullSizePhoto};
