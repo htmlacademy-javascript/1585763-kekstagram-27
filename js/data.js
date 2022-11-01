@@ -58,17 +58,14 @@ function makeCommentsContent () {
   };
 }
 
-const createPost = () => {
-  const id = getId();
-  return {
-    id: id,
-    url: `photos/${id}.jpg`,
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: generatorNumber(15, 200),
-    comments: Array.from({length: 8}, makeCommentsContent),
-  };
-};
+const createPost = (numberPhoto) => ({
+  id: numberPhoto + 1,
+  url: `photos/${numberPhoto + 1}.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: generatorNumber(15, 200),
+  comments: Array.from({length: 8}, makeCommentsContent),
+});
 
-const generatePosts = () => Array.from({length: SIMILAR_POST_COUNT}, createPost);
+const generatePosts = () => Array.from({length: SIMILAR_POST_COUNT}, (_, numberPhoto) => createPost(numberPhoto));
 
 export {generatePosts};
