@@ -6,10 +6,8 @@ function generatorNumber(numberOne, numberTwo) {
   return Math.floor(Math.random() * (numberTwo - numberOne + 1)) + numberOne;
 }
 
-/*function rowLimit(string, number) {
-  return string.length <= number;
-}*/
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const getRandomArrayElement = (elements) => elements[generatorNumber(0, elements.length - 1)];
 
-export {getRandomArrayElement, generatorNumber};
+export {getRandomArrayElement, generatorNumber, isEscapeKey};
