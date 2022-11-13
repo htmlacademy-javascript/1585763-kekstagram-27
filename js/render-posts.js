@@ -12,7 +12,7 @@ randomPosts.forEach(({url, comments, likes}) => {
   postsElement.querySelector('.picture__likes').textContent = likes;
   postsFragment.append(postsElement);
 });
-
 postsContainers.append(postsFragment);
+
 
 export {randomPosts};

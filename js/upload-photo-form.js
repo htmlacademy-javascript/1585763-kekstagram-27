@@ -6,7 +6,6 @@ const form = document.querySelector('.img-upload__form');
 const imgUploadOverlay = form.querySelector('.img-upload__overlay');
 const uploadFileInput = form.querySelector('#upload-file');
 const cancelButton = document.querySelector('#upload-cancel');
-const buttonSubmit = form.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -82,8 +81,8 @@ const setModalHandlers = () => {
   });
   cancelButton.addEventListener('click', () => {
     hideModal();
-    document.body.addEventListener('keydown', hideModalEsc);
   });
+  document.body.addEventListener('keydown', hideModalEsc, {once: true});
 };
 
 setModalHandlers();
