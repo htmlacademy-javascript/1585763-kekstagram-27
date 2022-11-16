@@ -1,8 +1,8 @@
 import './util.js';
 import './render-posts.js';
-import './render-fullsize-photo.js';
+import { renderFullSizePhoto } from './render-fullsize-photo.js';
 import'./data.js';
 import './upload-photo-form.js';
+import {randomPosts} from './render-posts.js';
 
-/*renderFullSizePhoto(randomPosts[1]);*/
-/*registerUploadFormEvents();*/
+renderFullSizePhoto(randomPosts[3]);
