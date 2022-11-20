@@ -1,4 +1,4 @@
-import {getRandomArrayElement, generatorNumber} from './util.js';
+/*import {getRandomArrayElement, generatorNumber} from './util.js';
 
 const DESCRIPTIONS = [
   'Если смогу, я сделаю это. Конец истории.',
@@ -68,4 +68,4 @@ const createPost = (numberPhoto) => ({
 
 const generatePosts = () => Array.from({length: SIMILAR_POST_COUNT}, (_, numberPhoto) => createPost(numberPhoto));
 
-export {generatePosts};
+export {generatePosts};*/
