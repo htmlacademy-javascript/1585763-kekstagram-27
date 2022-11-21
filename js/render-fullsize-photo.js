@@ -11,6 +11,8 @@ const bigPictureClose = bigPicture.querySelector('.cancel');
 
 const fragmentComment = document.createDocumentFragment();
 
+// Эта часть требует проверки и правки
+
 const COMMENTS_PER_PAGE = 5;
 let showCommentsCounter = 0;
 
@@ -48,7 +50,7 @@ const renderFullSizePhoto = (postsElement) => {
   commentsCount.textContent = postsElement.comments;
   socialCaption.textContent = postsElement.description;
 
-  /*  postsElement.forEach(({avatar, message}) => {
+  postsElement.forEach(({avatar, message}) => {
     const postComment = postsElement.comments;
     const comment = document.createElement('li');
     const commentImg = document.createElement('img');
@@ -61,12 +63,12 @@ const renderFullSizePhoto = (postsElement) => {
     commentImg.src = avatar;
     commentText.textContent = message;
     fragmentComment.append(comment);
-  });*/
+  });
 
   socialComments.innerHTML = '';
-  /*socialComments.append(fragmentComment);
+  socialComments.append(fragmentComment);
   commentsLoader.classList.add('hidden');
-  socialCommentCount.classList.add('hidden');*/
+  socialCommentCount.classList.add('hidden');
 
   showCommentsCounter = 0;
   showMoreComments(postsElement);
