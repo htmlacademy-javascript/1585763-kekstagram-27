@@ -282,10 +282,8 @@ function closeSuccessKeyDownClickHandler(evt) {
 }
 
 function outerSuccessClickHandler(evt) {
-  {
-    if (evt.target === evt.currentTarget) {
-      closeSuccess();
-    }
+  if (evt.target === evt.currentTarget) {
+    closeSuccess();
   }
 }
 
@@ -300,10 +298,8 @@ function closeErrorEscClickHandler (evt) {
 }
 
 function outerErrorClickHandler(evt) {
-  {
-    if (evt.target === evt.currentTarget) {
-      closeError();
-    }
+  if (evt.target === evt.currentTarget) {
+    closeError();
   }
 }
 

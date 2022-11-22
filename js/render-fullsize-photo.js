@@ -52,9 +52,12 @@ const closeModal = () => {
   commentsLoader.removeEventListener('click', showMoreCommentsClickHandler);
 };
 
-const renderFullSizePhoto = (photo) => {
+const openBigPhoto = () => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
+};
+
+const fillInformation = (photo) => {
   bigPictureImg.src = photo.url;
   likesCount.textContent = photo.likes;
   commentsCount.textContent = photo.comments.length;
@@ -63,6 +66,9 @@ const renderFullSizePhoto = (photo) => {
   showCommentsCounter = 0;
   comments = photo.comments;
   showMoreComments();
+};
+
+const closingForm = () => {
   commentsLoader.addEventListener('click', showMoreCommentsClickHandler);
   document.body.addEventListener('keydown', escKeyDownHandler);
   bigPictureClose.addEventListener('click', closeModalClickHandler);
@@ -83,4 +89,4 @@ function closeModalClickHandler() {
   closeModal();
 }
 
-export {renderFullSizePhoto};
+export {closingForm, openBigPhoto, fillInformation};

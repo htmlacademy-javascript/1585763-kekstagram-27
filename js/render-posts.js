@@ -1,4 +1,4 @@
-import {renderFullSizePhoto} from './render-fullsize-photo.js';
+import {closingForm, openBigPhoto, fillInformation} from './render-fullsize-photo.js';
 
 const clearListing = () => {
   const pics = document.querySelectorAll('.picture');
@@ -31,7 +31,9 @@ const renderPost = (photos) => {
   const addThumbnailClickHandler = (thumbnail, photo) => {
     thumbnail.addEventListener('click', (evt) => {
       evt.preventDefault();
-      renderFullSizePhoto(photo);
+      fillInformation(photo);
+      openBigPhoto();
+      closingForm();
     });
   };
   thumbnails.forEach((thumbnail, i) => {
