@@ -23,6 +23,7 @@ const MAX_HASHTAG_LENGTH = 20;
 const SCALE_STEP = 25;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
+const hashtagReg = /^[0-9a-zа-яё]*$/i;
 const Effects = {
   NONE: 'none',
   CHROME: 'chrome',
@@ -75,7 +76,7 @@ function validateHashtags(value) {
     if (hashtag[0] !== '#') {
       return false;
     }
-    return /^[0-9a-zа-яё]*$/i.test(hashtag.substring(1)) !== false;
+    return hashtagReg.test(hashtag.substring(1)) !== false;
   });
 }
 
@@ -85,9 +86,7 @@ pristine.addValidator(
   'Неверные хэштеги'
 );
 
-function validateComment(value) {
-  return value.length <= COMMENT_MAX_LENGTH;
-}
+const validateComment = (value) => value.length <= COMMENT_MAX_LENGTH;
 
 pristine.addValidator(
   uploadForm.querySelector('.text__description'),
@@ -195,7 +194,7 @@ const closeForm = () => {
   imgUploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.body.removeEventListener('keydown', closeUploadEscClickHandler);
-  cancel.removeEventListener('keydown', closeForm);
+  cancel.removeEventListener('keydown', cancelClickHandler);
 };
 
 const showForm = (file) => {
@@ -204,12 +203,12 @@ const showForm = (file) => {
   imgUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.body.addEventListener('keydown', closeUploadEscClickHandler);
-  cancel.addEventListener('click', closeForm);
+  cancel.addEventListener('click', cancelClickHandler);
 };
 
 const closeSuccess = () => {
   document.body.removeChild(document.querySelector('.success'));
-  document.body.removeEventListener('keydown', closeSuccessEscClickHandler);
+  document.body.removeEventListener('keydown', closeSuccessKeyDownClickHandler);
   cancel.click();
 };
 
@@ -221,25 +220,17 @@ const closeError = () => {
 const onSuccessSend = () => {
   const success = successTemplate.cloneNode(true);
   document.body.appendChild(success);
-  document.body.addEventListener('keydown', closeSuccessEscClickHandler);
-  document.querySelector('.success').addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closeSuccess();
-    }
-  });
-  document.querySelector('.success__button').addEventListener('click', closeSuccess);
+  document.body.addEventListener('keydown', closeSuccessKeyDownClickHandler);
+  document.querySelector('.success').addEventListener('click', outerSuccessClickHandler);
+  document.querySelector('.success__button').addEventListener('click', closeSuccessClickHandler);
 };
 
 const onErrorSend = () => {
   const error = errorTemplate.cloneNode(true);
   document.body.appendChild(error);
   document.body.addEventListener('keydown', closeErrorEscClickHandler);
-  document.querySelector('.error').addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closeError();
-    }
-  });
-  document.querySelector('.error__button').addEventListener('click', closeError);
+  document.querySelector('.error').addEventListener('click', outerErrorClickHandler);
+  document.querySelector('.error__button').addEventListener('click', closeErrorClickHandler);
 };
 
 const sendForm = () => {
@@ -284,10 +275,22 @@ const setModalHandlers = () => {
   });
 };
 
-function closeSuccessEscClickHandler (evt) {
+function closeSuccessKeyDownClickHandler(evt) {
   if (evt.key === 'Escape' && document.querySelector('.success')) {
     closeSuccess();
   }
+}
+
+function outerSuccessClickHandler(evt) {
+  {
+    if (evt.target === evt.currentTarget) {
+      closeSuccess();
+    }
+  }
+}
+
+function closeSuccessClickHandler() {
+  closeSuccess();
 }
 
 function closeErrorEscClickHandler (evt) {
@@ -296,7 +299,19 @@ function closeErrorEscClickHandler (evt) {
   }
 }
 
-function closeUploadEscClickHandler (evt) {
+function outerErrorClickHandler(evt) {
+  {
+    if (evt.target === evt.currentTarget) {
+      closeError();
+    }
+  }
+}
+
+function closeErrorClickHandler() {
+  closeError();
+}
+
+function closeUploadEscClickHandler(evt) {
   if (evt.key === 'Escape') {
     if (document.querySelector('.success') || document.querySelector('.error')) {
       return;
@@ -307,5 +322,8 @@ function closeUploadEscClickHandler (evt) {
   }
 }
 
-export {setModalHandlers};
+function cancelClickHandler() {
+  closeForm();
+}
 
+export {setModalHandlers};

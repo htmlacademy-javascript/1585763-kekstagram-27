@@ -3,10 +3,10 @@ import {renderPost} from './render-posts.js';
 
 const RERENDER_DELAY = 300;
 const RANDOM_PHOTO_NUM = 10;
-const FILTERS = {
-  DEFAULT: 'filter-default',
-  RANDOM: 'filter-random',
-  DISCUSSED: 'filter-discussed',
+const filters = {
+  default: 'filter-default',
+  random: 'filter-random',
+  discussed: 'filter-discussed',
 };
 
 const imgFilters = document.querySelector('.img-filters');
@@ -34,10 +34,10 @@ const filterPhotos = (photos) => {
   const filterId = getActiveFilterId();
   let renderPhotos = [];
   switch (filterId) {
-    case FILTERS.DEFAULT:
+    case filters.default:
       renderPhotos = photos;
       break;
-    case FILTERS.RANDOM:
+    case filters.random:
       do {
         const randomPhoto = getRandomArrayElement(photos);
         if (!renderPhotos.includes(randomPhoto)) {
@@ -45,8 +45,8 @@ const filterPhotos = (photos) => {
         }
       } while (renderPhotos.length < RANDOM_PHOTO_NUM);
       break;
-    case FILTERS.DISCUSSED:
-      renderPhotos = [...photos].sort((a, b) => a.comments.length < b.comments.length);
+    case filters.discussed:
+      renderPhotos = [...photos].sort((a, b) => b.comments.length - a.comments.length);
       break;
   }
   renderPost(renderPhotos);
