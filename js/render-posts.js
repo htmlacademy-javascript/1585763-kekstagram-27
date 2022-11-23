@@ -9,24 +9,6 @@ const clearListing = () => {
   });
 };
 
-/*const creatingPhoto = (photos) => {
-  clearListing();
-  const listing = document.querySelector('.pictures');
-  const fragment = document.createDocumentFragment();
-
-  photos.forEach((photo) => {
-    const element = pictureTemplate.cloneNode(true);
-    const image = element.querySelector('.picture__img');
-    const comments = element.querySelector('.picture__comments');
-    const likes = element.querySelector('.picture__likes');
-    image.src = photo.url;
-    comments.textContent = photo.comments.length;
-    likes.textContent = photo.likes;
-    fragment.appendChild(element);
-  });
-  listing.appendChild(fragment);
-};*/
-
 const renderPost = (photos) => {
   clearListing();
   const listing = document.querySelector('.pictures');
