@@ -1,6 +1,6 @@
 const SERVER = 'https://27.javascript.pages.academy';
 
-const loaderPhotos = (onSuccess, onError) =>
+const getPhotos = (onSuccess, onError) =>
   fetch(`${SERVER}/kekstagram/data`)
     .then((response) => response.json())
     .then(onSuccess)
@@ -17,4 +17,4 @@ const uploadPhoto = (formData, onSuccess, onError) =>
       onError();
     }
   }).catch(onError);
-export {loaderPhotos, uploadPhoto};
+export {getPhotos, uploadPhoto};
