@@ -1,4 +1,6 @@
-import {renderFullSizePhoto} from './render-fullsize-photo.js';
+import {closingForm, openBigPhoto, fillInformation} from './render-fullsize-photo.js';
+
+const pictureTemplate = document.querySelector('#picture').content;
 
 const clearListing = () => {
   const pics = document.querySelectorAll('.picture');
@@ -9,9 +11,7 @@ const clearListing = () => {
 
 const renderPost = (photos) => {
   clearListing();
-
   const listing = document.querySelector('.pictures');
-  const pictureTemplate = document.querySelector('#picture').content;
   const fragment = document.createDocumentFragment();
 
   photos.forEach((photo) => {
@@ -24,14 +24,15 @@ const renderPost = (photos) => {
     likes.textContent = photo.likes;
     fragment.appendChild(element);
   });
-
   listing.appendChild(fragment);
 
   const thumbnails = document.querySelectorAll('.picture');
   const addThumbnailClickHandler = (thumbnail, photo) => {
     thumbnail.addEventListener('click', (evt) => {
       evt.preventDefault();
-      renderFullSizePhoto(photo);
+      fillInformation(photo);
+      openBigPhoto();
+      closingForm();
     });
   };
   thumbnails.forEach((thumbnail, i) => {
