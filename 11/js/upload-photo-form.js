@@ -52,7 +52,8 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'text-error'
 }, false);
 
-function validateHashtags(value) {
+const validateHashtags = (value) => {
+  // Нет хэштегов
   if (value === '') {
     return true;
   }
@@ -60,9 +61,11 @@ function validateHashtags(value) {
     .replace(/\s\s+/g, ' ')
     .trim()
     .split(' ');
+  // не больше 5 хэштегов
   if (hashtags.length > MAX_HASHTAG_COUNT ) {
     return false;
   }
+  // только уникальные хэштеги
   const uniqueHashtags = hashtags
     .map((hashtag) => hashtag.toLowerCase())
     .filter((hashtag, index, self) => self.indexOf(hashtag) === index);
@@ -70,15 +73,18 @@ function validateHashtags(value) {
     return false;
   }
   return hashtags.every((hashtag) => {
+    // длина от 2 до 20 символов
     if (hashtag.length < MIN_HASHTAG_LENGTH || hashtag.length > MAX_HASHTAG_LENGTH) {
       return false;
     }
+    // начинается с #
     if (hashtag[0] !== '#') {
       return false;
     }
+    // только буквы и цифры
     return hashtagReg.test(hashtag.substring(1)) !== false;
   });
-}
+};
 
 pristine.addValidator(
   uploadForm.querySelector('.text__hashtags'),
@@ -165,7 +171,7 @@ const applyPhotoEffect = () => {
 const updatePhotoScale = (value) => {
   photoSettings.scale = value;
   scaleValue.value = `${value}%`;
-  uploadPreview.style.transform = `scale(${value / 100})`;
+  uploadPreview.style.transform = `scale(${value / SCALE_MAX})`;
 };
 
 const updatePhotoEffect = (value) => {
@@ -217,7 +223,7 @@ const closeError = () => {
   document.body.removeEventListener('keydown', closeErrorEscClickHandler);
 };
 
-const onSuccessSend = () => {
+const successSendHandler = () => {
   const success = successTemplate.cloneNode(true);
   document.body.appendChild(success);
   document.body.addEventListener('keydown', closeSuccessKeyDownClickHandler);
@@ -225,7 +231,7 @@ const onSuccessSend = () => {
   document.querySelector('.success__button').addEventListener('click', closeSuccessClickHandler);
 };
 
-const onErrorSend = () => {
+const errorSendHandler = () => {
   const error = errorTemplate.cloneNode(true);
   document.body.appendChild(error);
   document.body.addEventListener('keydown', closeErrorEscClickHandler);
@@ -236,7 +242,7 @@ const onErrorSend = () => {
 const sendForm = () => {
   uploadSubmit.setAttribute('disabled', 'true');
   const formData = new FormData(uploadForm);
-  uploadPhoto(formData, onSuccessSend, onErrorSend)
+  uploadPhoto(formData, successSendHandler, errorSendHandler)
     .finally(() => {
       uploadSubmit.removeAttribute('disabled');
     });
@@ -282,10 +288,8 @@ function closeSuccessKeyDownClickHandler(evt) {
 }
 
 function outerSuccessClickHandler(evt) {
-  {
-    if (evt.target === evt.currentTarget) {
-      closeSuccess();
-    }
+  if (evt.target === evt.currentTarget) {
+    closeSuccess();
   }
 }
 
@@ -300,10 +304,8 @@ function closeErrorEscClickHandler (evt) {
 }
 
 function outerErrorClickHandler(evt) {
-  {
-    if (evt.target === evt.currentTarget) {
-      closeError();
-    }
+  if (evt.target === evt.currentTarget) {
+    closeError();
   }
 }
 
