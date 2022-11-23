@@ -29,25 +29,25 @@ const RANGE_MAX = 1;
 const RANGE_START = 100;
 const RANGE_STEP = 1;
 
-const EFFECTS_NONE_MIN = 1;
-const EFFECTS_NONE_MAX = 100;
-const EFFECTS_NONE_STEP = 1;
+const EFFECT_NONE_MIN = 1;
+const EFFECT_NONE_MAX = 100;
+const EFFECT_NONE_STEP = 1;
 
-const EFFECTS_SEPIA_MIN = 0;
-const EFFECTS_SEPIA_MAX = 1;
-const EFFECTS_SEPIA_STEP = 0.1;
+const EFFECT_SEPIA_MIN = 0;
+const EFFECT_SEPIA_MAX = 1;
+const EFFECT_SEPIA_STEP = 0.1;
 
-const EFFECTS_MARVIN_MIN = 0;
-const EFFECTS_MARVIN_MAX = 100;
-const EFFECTS_MARVIN_STEP = 1;
+const EFFECT_MARVIN_MIN = 0;
+const EFFECT_MARVIN_MAX = 100;
+const EFFECT_MARVIN_STEP = 1;
 
-const EFFECTS_PHOBOS_MIN = 0;
-const EFFECTS_PHOBOS_MAX = 3;
-const EFFECTS_PHOBOS_STEP = 0.1;
+const EFFECT_PHOBOS_MIN = 0;
+const EFFECT_PHOBOS_MAX = 3;
+const EFFECT_PHOBOS_STEP = 0.1;
 
-const EFFECTS_HEAT_MIN = 1;
-const EFFECTS_HEAT_MAX = 3;
-const EFFECTS_HEAT_STEP = 0.1;
+const EFFECT_HEAT_MIN = 1;
+const EFFECT_HEAT_MAX = 3;
+const EFFECT_HEAT_STEP = 0.1;
 
 const hashtagReg = /^[0-9a-zа-яё]*$/i;
 const Effects = {
@@ -133,32 +133,32 @@ pristine.addValidator(
 );
 
 const updateEffectLevelSlider = (effect) => {
-  let min = EFFECTS_NONE_MIN;
-  let max = EFFECTS_NONE_MAX;
-  let step = EFFECTS_NONE_STEP;
+  let min = EFFECT_NONE_MIN;
+  let max = EFFECT_NONE_MAX;
+  let step = EFFECT_NONE_STEP;
   switch (effect) {
     case Effects.NONE:
       break;
     case Effects.CHROME:
     case Effects.SEPIA:
-      min = EFFECTS_SEPIA_MIN;
-      max = EFFECTS_SEPIA_MAX;
-      step = EFFECTS_SEPIA_STEP;
+      min = EFFECT_SEPIA_MIN;
+      max = EFFECT_SEPIA_MAX;
+      step = EFFECT_SEPIA_STEP;
       break;
     case Effects.MARVIN:
-      min = EFFECTS_MARVIN_MIN;
-      max = EFFECTS_MARVIN_MAX;
-      step = EFFECTS_MARVIN_STEP;
+      min = EFFECT_MARVIN_MIN;
+      max = EFFECT_MARVIN_MAX;
+      step = EFFECT_MARVIN_STEP;
       break;
     case Effects.PHOBOS:
-      min = EFFECTS_PHOBOS_MIN;
-      max = EFFECTS_PHOBOS_MAX;
-      step = EFFECTS_PHOBOS_STEP;
+      min = EFFECT_PHOBOS_MIN;
+      max = EFFECT_PHOBOS_MAX;
+      step = EFFECT_PHOBOS_STEP;
       break;
     case Effects.HEAT:
-      min = EFFECTS_HEAT_MIN;
-      max = EFFECTS_HEAT_MAX;
-      step = EFFECTS_HEAT_STEP;
+      min = EFFECT_HEAT_MIN;
+      max = EFFECT_HEAT_MAX;
+      step = EFFECT_HEAT_STEP;
       break;
   }
   effectLevelSlider.noUiSlider.updateOptions({
