@@ -59,6 +59,12 @@ const Effects = {
   HEAT: 'heat',
 };
 
+const photoSettings = {
+  scale: SCALE_MAX,
+  effect: Effects.NONE,
+  effectLevel: 100,
+};
+
 noUiSlider.create(effectLevelSlider, {
   range: {
     min: RANGE_MIN,
@@ -125,12 +131,6 @@ pristine.addValidator(
   validateComment,
   'Неверный комментарий'
 );
-
-const photoSettings = {
-  scale: SCALE_MAX,
-  effect: Effects.NONE,
-  effectLevel: 100,
-};
 
 const updateEffectLevelSlider = (effect) => {
   let min = EFFECTS_NONE_MIN;
