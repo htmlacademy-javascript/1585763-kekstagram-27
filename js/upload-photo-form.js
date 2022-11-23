@@ -23,6 +23,32 @@ const MAX_HASHTAG_LENGTH = 20;
 const SCALE_STEP = 25;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
+
+const RANGE_MIN = 0;
+const RANGE_MAX = 1;
+const RANGE_START = 100;
+const RANGE_STEP = 1;
+
+const EFFECT_NONE_MIN = 1;
+const EFFECT_NONE_MAX = 100;
+const EFFECT_NONE_STEP = 1;
+
+const EFFECT_SEPIA_MIN = 0;
+const EFFECT_SEPIA_MAX = 1;
+const EFFECT_SEPIA_STEP = 0.1;
+
+const EFFECT_MARVIN_MIN = 0;
+const EFFECT_MARVIN_MAX = 100;
+const EFFECT_MARVIN_STEP = 1;
+
+const EFFECT_PHOBOS_MIN = 0;
+const EFFECT_PHOBOS_MAX = 3;
+const EFFECT_PHOBOS_STEP = 0.1;
+
+const EFFECT_HEAT_MIN = 1;
+const EFFECT_HEAT_MAX = 3;
+const EFFECT_HEAT_STEP = 0.1;
+
 const hashtagReg = /^[0-9a-zа-яё]*$/i;
 const Effects = {
   NONE: 'none',
@@ -33,13 +59,19 @@ const Effects = {
   HEAT: 'heat',
 };
 
+const photoSettings = {
+  scale: SCALE_MAX,
+  effect: Effects.NONE,
+  effectLevel: 100,
+};
+
 noUiSlider.create(effectLevelSlider, {
   range: {
-    min: 0,
-    max: 100,
+    min: RANGE_MIN,
+    max: RANGE_MAX,
   },
-  start: 100,
-  step: 1,
+  start: RANGE_START,
+  step: RANGE_STEP,
   connect: 'lower',
 });
 
@@ -100,39 +132,33 @@ pristine.addValidator(
   'Неверный комментарий'
 );
 
-const photoSettings = {
-  scale: SCALE_MAX,
-  effect: Effects.NONE,
-  effectLevel: 100,
-};
-
 const updateEffectLevelSlider = (effect) => {
-  let min = 1;
-  let max = 100;
-  let step = 1;
+  let min = EFFECT_NONE_MIN;
+  let max = EFFECT_NONE_MAX;
+  let step = EFFECT_NONE_STEP;
   switch (effect) {
     case Effects.NONE:
       break;
     case Effects.CHROME:
     case Effects.SEPIA:
-      min = 0;
-      max = 1;
-      step = 0.1;
+      min = EFFECT_SEPIA_MIN;
+      max = EFFECT_SEPIA_MAX;
+      step = EFFECT_SEPIA_STEP;
       break;
     case Effects.MARVIN:
-      min = 0;
-      max = 100;
-      step = 1;
+      min = EFFECT_MARVIN_MIN;
+      max = EFFECT_MARVIN_MAX;
+      step = EFFECT_MARVIN_STEP;
       break;
     case Effects.PHOBOS:
-      min = 0;
-      max = 3;
-      step = 0.1;
+      min = EFFECT_PHOBOS_MIN;
+      max = EFFECT_PHOBOS_MAX;
+      step = EFFECT_PHOBOS_STEP;
       break;
     case Effects.HEAT:
-      min = 1;
-      max = 3;
-      step = 0.1;
+      min = EFFECT_HEAT_MIN;
+      max = EFFECT_HEAT_MAX;
+      step = EFFECT_HEAT_STEP;
       break;
   }
   effectLevelSlider.noUiSlider.updateOptions({

@@ -13,7 +13,7 @@ const COMMENTS_PER_PAGE = 5;
 let showCommentsCounter = 0;
 let comments = [];
 
-const creatingComments = () => {
+const getComments = () => {
   const showComments = comments.slice(showCommentsCounter, showCommentsCounter + COMMENTS_PER_PAGE);
   showCommentsCounter += showComments.length;
   showComments.forEach((photoComment) => {
@@ -33,9 +33,10 @@ const creatingComments = () => {
 };
 
 const showMoreComments = () => {
-  creatingComments();
+  getComments();
+  const commentTemplate = `${showCommentsCounter} из <span class="comments-count">${comments.length}</span> комментариев`;
   if (comments.length > COMMENTS_PER_PAGE) {
-    socialCommentCount.innerHTML = `${showCommentsCounter} из <span class="comments-count">${comments.length}</span> комментариев`;
+    socialCommentCount.innerHTML = commentTemplate;
   }
   if (showCommentsCounter === comments.length) {
     commentsLoader.classList.add('hidden');
@@ -68,7 +69,7 @@ const fillInformation = (photo) => {
   showMoreComments();
 };
 
-const closingForm = () => {
+const hideForm = () => {
   commentsLoader.addEventListener('click', showMoreCommentsClickHandler);
   document.body.addEventListener('keydown', escKeyDownHandler);
   bigPictureClose.addEventListener('click', closeModalClickHandler);
@@ -89,4 +90,4 @@ function closeModalClickHandler() {
   closeModal();
 }
 
-export {closingForm, openBigPhoto, fillInformation};
+export {hideForm, openBigPhoto, fillInformation};

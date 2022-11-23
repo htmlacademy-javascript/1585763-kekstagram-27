@@ -1,4 +1,4 @@
-import {closingForm, openBigPhoto, fillInformation} from './render-fullsize-photo.js';
+import {hideForm, openBigPhoto, fillInformation} from './render-fullsize-photo.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 
@@ -32,7 +32,7 @@ const renderPost = (photos) => {
       evt.preventDefault();
       fillInformation(photo);
       openBigPhoto();
-      closingForm();
+      hideForm();
     });
   };
   thumbnails.forEach((thumbnail, i) => {
