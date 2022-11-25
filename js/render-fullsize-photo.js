@@ -34,9 +34,9 @@ const getComments = () => {
 
 const showMoreComments = () => {
   getComments();
-  const commentTemplate = `${showCommentsCounter} из <span class="comments-count">${comments.length}</span> комментариев`;
+  const commentTemplate = `${showCommentsCounter} из ${comments.length} комментариев`;
   if (comments.length > COMMENTS_PER_PAGE) {
-    socialCommentCount.innerHTML = commentTemplate;
+    socialCommentCount.textContent = commentTemplate;
   }
   if (showCommentsCounter === comments.length) {
     commentsLoader.classList.add('hidden');
