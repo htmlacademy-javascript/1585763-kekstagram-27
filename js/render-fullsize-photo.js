@@ -35,12 +35,10 @@ const getComments = () => {
 const showMoreComments = () => {
   getComments();
   let currentCommentsCounter = showCommentsCounter;
-
   if (showCommentsCounter >= comments.length) {
     currentCommentsCounter = comments.length;
   }
   socialCommentCount.textContent = `${currentCommentsCounter} из ${comments.length} комментариев`;
-
   if (showCommentsCounter === comments.length) {
     commentsLoader.classList.add('hidden');
   }
